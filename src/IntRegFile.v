@@ -10,7 +10,10 @@ module IntRegFile (
     output [31:0] read_data1,
     
     input [4:0] read_reg2,  // rs2
-    output [31:0] read_data2
+    output [31:0] read_data2,
+
+    input [4:0] read_reg3,  // rd
+    output [31:0] read_data3
 );
     
     reg [31:0] registers [31:0];
@@ -33,5 +36,8 @@ module IntRegFile (
 
     assign read_data2 = (read_reg2 == 5'd0) ? 32'd0 :
     ((write_enable && (write_reg == read_reg2)) ? write_data : registers[read_reg2]);
+
+    assign read_data3 = (read_reg3 == 5'd0) ? 32'd0 :
+    ((write_enable && (write_reg == read_reg3)) ? write_data : registers[read_reg3]);
     
 endmodule
